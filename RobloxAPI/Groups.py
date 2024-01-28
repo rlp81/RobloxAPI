@@ -5,11 +5,11 @@ GroupAPI = "https://groups.roblox.com/v2/groups?groupIds=id"
 V1GroupAPI = "https://groups.roblox.com/v1/groups/id/"
 RoleroupAPI = "https://groups.roblox.com/v1/roles?ids="
 
-def getRole(userid, groupid):
+def getRoleinGroup(userid, groupid):
     full = UserGroupAPI.replace("id", str(userid))
     json = requests.get(url=full).json()
     for i in json['data']:
-        if int(i['group']['id']) == groupid:
+        if int(i['group']['id']) == int(groupid):
             return i['role']['name']
 
 def getRank(userid, groupid):
@@ -51,7 +51,7 @@ def getRole(roleid):
 
 
 def getUsers(groupid):
-    full = V1GroupAPI.replace("id", str(groupid)) + "users"
+    full = V1GroupAPI.replace("id", str(groupid)) + "users?limit=100&sortOrder=Asc"
     json = requests.get(url=full).json()
     return json['data']
 
